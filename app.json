@@ -1,0 +1,19 @@
+{
+    "name": "Chatbot",
+    "description": "https://github.com/pokurt/reverse-botapi",
+    "keywords": [
+        "Telegram",
+        "Pyrogram",
+        "BotAPI"
+    ],
+    "success_url": "https://github.com/pokurt/reverse-botapi",
+    "repository": "https://github.com/pokurt/reverse-botapi",
+    "stack": "container",
+    "env": {
+        "PORT": {
+            "description": "Leave it as it is if you are using Heroku",
+            "required": true,
+            "value": 80
+        }
+    }
+}
