@@ -1,5 +1,5 @@
 {
-    "name": "Chatbot",
+    "name": "Pyro-BotApi (reverse)",
     "description": "https://github.com/pokurt/reverse-botapi",
     "keywords": [
         "Telegram",
@@ -12,6 +12,16 @@
     "env": {
         "PORT": {
             "description": "Leave it as it is if you are using Heroku",
+            "required": true,
+            "value": 80
+        },
+        "API_ID": {
+            "description": "your API_ID",
+            "required": true,
+            "value": 80
+        },
+        "API_HASH": {
+            "description": "your API_HASH",
             "required": true,
             "value": 80
         }
