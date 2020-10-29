@@ -5,7 +5,7 @@ import json
 
 @app.get('/getChat')
 @app.post('/getChat')
-async def get_user(token: str, chat_id: int):
+async def get_chat(token: str, chat_id: int):
     try:
         client = await sessions(token)
     except errors.AccessTokenInvalid:
@@ -16,5 +16,10 @@ async def get_user(token: str, chat_id: int):
         return {
             "errors": 'The bot token is invalid (caused by "auth.ImportBotAuthorization")'
         }
-    c = await client.get_chat(chat_id)
+    try:
+        c = await client.get_chat(chat_id)
+    except errors.PeerIdInvalid:
+        return {
+            "error": "The id/access_hash combination is invalid"
+        }
     return json.loads(str(c))
