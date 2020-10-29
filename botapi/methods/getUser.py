@@ -1,9 +1,20 @@
 from botapi import app, sessions
+from pyrogram import errors
+
 
 @app.get('/getUser')
 @app.post('/getUser')
 async def get_user(token: str, user_id: int):
-    client = await sessions(token)
+    try:
+        client = await sessions(token)
+    except errors.AccessTokenInvalid:
+        return {
+            "error": 'The bot access token is invalid (caused by "ImportBotAuthorization")'
+        }
+    except errors.AccessTokenExpired:
+        return {
+            "errors": 'The bot token is invalid (caused by "auth.ImportBotAuthorization")'
+        }
     u = await client.get_users(user_id)
     try:
         return {
@@ -45,4 +56,8 @@ async def get_user(token: str, user_id: int):
             "username": u.username or None,
             "language_code": u.language_code,
             "dc_id": u.dc_id or None
+        }
+    except errors.PeerIdInvalid:
+        return {
+            "error": "The id/access_hash combination is invalid"
         }
