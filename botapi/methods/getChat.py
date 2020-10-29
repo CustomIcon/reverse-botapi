@@ -1,11 +1,11 @@
 from botapi import app, sessions
 from pyrogram import errors
-import json
+import json 
 
 
-@app.get('/getUser')
-@app.post('/getUser')
-async def get_user(token: str, user_id: int):
+@app.get('/getChat')
+@app.post('/getChat')
+async def get_user(token: str, chat_id: int):
     try:
         client = await sessions(token)
     except errors.AccessTokenInvalid:
@@ -16,5 +16,5 @@ async def get_user(token: str, user_id: int):
         return {
             "errors": 'The bot token is invalid (caused by "auth.ImportBotAuthorization")'
         }
-    u = await client.get_users(user_id)
-    return json.loads(str(u))
+    c = await client.get_chat(chat_id)
+    return json.loads(str(c))
