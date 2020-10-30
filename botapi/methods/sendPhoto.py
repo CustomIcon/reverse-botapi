@@ -35,10 +35,9 @@ async def send_photo(
             "errors": 'The bot token is invalid (caused by "auth.ImportBotAuthorization")'
         }
     try:
-        file = await client.save_file(photo)
         u = await client.send_photo(
             chat_id=chat_id,
-            photo=file,
+            photo=photo,
             file_ref=file_ref,
             caption=caption,
             parse_mode=parse_mode,
