@@ -1,3 +1,4 @@
+from typing import Union
 from botapi import app, sessions
 from pyrogram import errors
 import json
@@ -5,7 +6,7 @@ import json
 
 @app.get('/getUser')
 @app.post('/getUser')
-async def get_user(token: str, user_id: int):
+async def get_user(token: str, user_id: Union[int, str]):
     try:
         client = await sessions(token)
     except errors.AccessTokenInvalid:
