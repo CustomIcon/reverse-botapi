@@ -1,6 +1,5 @@
 from typing import Union
 from botapi import app, sessions
-from pyrogram import errors
 import json 
 
 
@@ -9,18 +8,14 @@ import json
 async def get_chat(token: str, chat_id: Union[int, str]):
     try:
         client = await sessions(token)
-    except errors.AccessTokenInvalid:
+    except Exception as err:
         return {
-            "error": 'The bot access token is invalid (caused by "ImportBotAuthorization")'
-        }
-    except errors.AccessTokenExpired:
-        return {
-            "errors": 'The bot token is invalid (caused by "auth.ImportBotAuthorization")'
+            "error": str(err)
         }
     try:
         c = await client.get_chat(chat_id)
-    except errors.PeerIdInvalid:
+    except Exception as err:
         return {
-            "error": "The id/access_hash combination is invalid"
+            "error": str(err)
         }
     return json.loads(str(c))

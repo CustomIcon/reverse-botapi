@@ -1,6 +1,5 @@
 from typing import Optional, Union, BinaryIO
 from botapi import app, sessions
-from pyrogram import errors
 from pyrogram import types
 import json
 
@@ -26,13 +25,9 @@ async def send_photo(
     ) -> "types.Message":
     try:
         client = await sessions(token)
-    except errors.AccessTokenInvalid:
+    except Exception as err:
         return {
-            "error": 'The bot access token is invalid (caused by "ImportBotAuthorization")'
-        }
-    except errors.AccessTokenExpired:
-        return {
-            "errors": 'The bot token is invalid (caused by "auth.ImportBotAuthorization")'
+            "error": str(err)
         }
     try:
         u = await client.send_photo(
@@ -47,8 +42,8 @@ async def send_photo(
             schedule_date=schedule_date,
             reply_markup=reply_markup
         )
-    except errors.PeerIdInvalid:
+    except Exception as err:
         return {
-            "error": "The id/access_hash combination is invalid"
+            "error": str(err)
         }
     return json.loads(str(u))
