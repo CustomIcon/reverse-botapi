@@ -1,11 +1,11 @@
 from typing import Union
 from botapi import app, sessions
-import json
+import json 
 
 
-@app.get('/getUser')
-@app.post('/getUser')
-async def get_user(token: str, user_id: Union[int, str]):
+@app.get('/getChat')
+@app.post('/getChat')
+async def get_chat(token: str, chat_id: Union[int, str]):
     try:
         client = await sessions(token)
     except Exception as err:
@@ -13,9 +13,9 @@ async def get_user(token: str, user_id: Union[int, str]):
             "error": str(err)
         }
     try:
-        u = await client.get_users(user_id)
+        c = await client.get_chat(chat_id)
     except Exception as err:
         return {
             "error": str(err)
         }
-    return json.loads(str(u))
+    return json.loads(str(c))
